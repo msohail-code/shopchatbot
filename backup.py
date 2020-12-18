@@ -47,19 +47,19 @@ def sms_reply():
     ordering = False
 
     if 'Hi' in msg or 'hi' in msg:
-    	delivery_message = "Hello, how are you? How I can help you today"
-    	responded = True
+        delivery_message = "Hello, how are you? How I can help you today"
+        responded = True
 
     if 'Who are you' in msg:
-    	delivery_message = "I'm a bot written in python to help you."
-    	responded = True
+        delivery_message = "I'm a bot written in python to help you."
+        responded = True
 
     if 'what you can do' in msg:
-    	delivery_message = "I can help you with all the information trained in me."
-    	responded = True
+        delivery_message = "I can help you with all the information trained in me."
+        responded = True
     if "want to order" in msg or ordering:
 
-    	customer_details = []
+        customer_details = []
     
     if "show products" in msg:
         cur = mysql.connection.cursor()
@@ -71,8 +71,8 @@ def sms_reply():
         responded = True
     
     if not responded:
-    	delivery_message = "Hi, I didn't understand what you said"
-    	responded = True
+        delivery_message = "Hi, I didn't understand what you said"
+        responded = True
 
 
     resp.message(delivery_message)

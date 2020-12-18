@@ -70,7 +70,7 @@
  <td>{{ row.3 }}</td>
  <td>{{ row.4 }}</td>
  <td>{{ row.5 }}</td>
- <td>{{ row.6 }}</td>
+ <td><img src="{{url_for('static',filename='/images/img.png')}}" width="50px" max-height="50px" alt="working">{{ row.6 }}</td>
  <td>{{ row.7 }}</td>
 
 
@@ -151,7 +151,6 @@
  <input type="text" class="form-control" name="image"  value="{{ row.6 }}">
   <label>status:</label>
   <select name="status" class="form-control" >
-  	<option disabled>Select Status</option>
   	<option value="0">Publish</option>
   	<option value="1">Draft</option>
   </select>
@@ -282,7 +281,6 @@
  <input type="text" class="form-control" name="image">
   <label>status:</label>
   <select name="status" class="form-control">
-  	<option disabled selected>Select Something</option>
   	<option value="0">Publish</option>
   	<option value="1">Draft</option>
   </select>
