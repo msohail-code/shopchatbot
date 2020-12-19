@@ -19,10 +19,10 @@
  <div class="starter-template">
 
 
- <h1>Product Data</h1>
+ <h1>Orders</h1>
 
 
- <button type="button" class="btn btn-info pull-right" data-toggle="modal" data-target="#myModal">Add Product</button>
+
 
 
  <table class="table table-striped">
@@ -37,16 +37,16 @@
  <td>No</td>
 
 
- <td>Title</td>
- <td>Description</td>
- <td>Orders</td>
- <td>Price</td>
- <td>Category</td>
- <td>Image</td>
- <td>Status</td>
+ <td>id  </td>
+ <td>pid </td>
+ <td>area </td>
+ <td>name </td>
+ <td>home_number </td>
+ <td>phone_number </td>
+ <td>total_price </td>
+ <td>street_number </td>
+ <td>emerate </td>
 
-
- <td>Action</td>
 
 
  </tr>
@@ -70,20 +70,13 @@
  <td>{{ row.3 }}</td>
  <td>{{ row.4 }}</td>
  <td>{{ row.5 }}</td>
- <td><img src="{{url_for('static',filename='/images/'+row.6)}}" width="50px" max-height="50px" alt="working"></td>
+ <td>{{ row.6 }}</td>
  <td>{{ row.7 }}</td>
+ <td>{{ row.8 }}</td>
+ <td>{{ row.9 }}</td>
 
 
- <td>
-
-
- <a href="#!" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modalEdit{{ row.0 }}">Edit</a>
-
-
- <a href="/hapus/{{ row.0 }}" class="btn btn-danger btn-xs" onclick="return confirm('Are you sure?')">Delete</a>
-
-
- </td>
+ 
 
 
  </tr>
@@ -118,7 +111,7 @@
  <div class="modal-body">
 
 
- <form action="{{ url_for('update') }}" method="POST" enctype="multipart/form-data">
+ <form action="{{ url_for('update') }}" method="POST">
 
 
  <div class="form-group">
@@ -148,7 +141,7 @@
   <label>category:</label>
  <input type="text" class="form-control" name="category"  value="{{ row.5 }}">
   <label>image:</label>
- <input type="file" class="form-control" name="image"  value="{{ row.6 }}">
+ <input type="text" class="form-control" name="image"  value="{{ row.6 }}">
   <label>status:</label>
   <select name="status" class="form-control" >
   	<option value="0">Publish</option>
@@ -255,7 +248,7 @@
  <div class="modal-body">
 
 
- <form action="{{ url_for('simpan') }}" method="POST" enctype="multipart/form-data">
+ <form action="{{ url_for('simpan') }}" method="POST">
 
 
  <div class="form-group">
@@ -278,7 +271,7 @@
   <label>category:</label>
  <input type="text" class="form-control" name="category">
   <label>image:</label>
- <input type="file" class="form-control" name="image">
+ <input type="text" class="form-control" name="image">
   <label>status:</label>
   <select name="status" class="form-control">
   	<option value="0">Publish</option>

@@ -2,6 +2,7 @@ from flask import Flask, request, render_template, url_for, redirect
 from twilio.twiml.messaging_response import MessagingResponse
 import os
 from flask_mysqldb import MySQL
+from werkzeug.utils import secure_filename
 
 # Getting the current directory of the chatbot
 
@@ -23,7 +24,7 @@ mysql = MySQL(app)
 msg = "Hello, world"
 @app.route("/")
 def hello():
-    return "Working fine"
+    return redirect(url_for('home'))
 
 @app.route('/dashboard')
 def home():
@@ -35,9 +36,14 @@ def home():
 
 @app.route("/sms", methods=['POST'])
 def sms_reply():
+    cur = mysql.connection.cursor()
+    cur.execute("SELECT * FROM products")
+    rv = cur.fetchall()
+    
     """Respond to incoming calls with a simple text message."""
     # Fetch the message
     msg = request.form.get('Body')
+    from_ = request.form.get('From')
 
     # Create reply
     responded = False
@@ -61,14 +67,13 @@ def sms_reply():
 
     	customer_details = []
     
-    if "show products" in msg:
-        cur = mysql.connection.cursor()
-        cur.execute("SELECT * FROM products")
-        rv = cur.fetchall()
-        cur.close()
+    if "show products" in msg or "Show products" in msg:
+        
         for row in rv:
            delivery_message = delivery_message+ row[1]+" = $"+ str(row[4]) + "\n"
         responded = True
+    if 'want to order':
+        print ("working")
     
     if not responded:
     	delivery_message = "Hi, I didn't understand what you said"
@@ -76,7 +81,8 @@ def sms_reply():
 
 
     resp.message(delivery_message)
-
+    print(request.form)
+    cur.close()
     return str(resp)
 
 @app.route('/simpan',methods=["POST"])
@@ -86,10 +92,12 @@ def simpan():
     orders = request.form['orders']
     price = request.form['price']
     category = request.form['category']
-    image = request.form['image']
+    imageMain = request.files['image']
+    image = secure_filename(imageMain.filename)
     status = request.form['status']
     cur = mysql.connection.cursor()
     cur.execute("INSERT INTO products (`title`, `description`, `orders`, `price`, `category`, `image`, `status`) VALUES (%s,%s,%s,%s,%s,%s,%s)",(title,description,orders,price,category,image,status,))
+    imageMain.save('static/images/'+image)
     mysql.connection.commit()
     return redirect(url_for('home'))
 
@@ -101,10 +109,14 @@ def update():
     orders = request.form['orders']
     price = request.form['price']
     category = request.form['category']
-    image = request.form['image']
+    imageMain = request.files['image']
+    image = secure_filename(imageMain.filename)
+    
+    imagetmp = imageMain.mimetype
     status = request.form['status']
     cur = mysql.connection.cursor()
     cur.execute("UPDATE products SET title=%s, description=%s, orders=%s, price=%s, category=%s, image=%s, status=%s WHERE id=%s", (title,description,orders,price,category,image,status,id_data,))
+    imageMain.save('static/images/'+image)
     mysql.connection.commit()
     return redirect(url_for('home'))
 
@@ -123,6 +135,44 @@ def about():
 def contact():
     return render_template('contact-us.html')
 
+@app.route('/orders')
+def orders():
+    cur = mysql.connection.cursor()
+    cur.execute("SELECT * FROM orders")
+    rv = cur.fetchall()
+    cur.close()
+    return render_template('orders.html', computers=rv)
+
+@app.route('/checkout')
+def checkout():
+    cur = mysql.connection.cursor()
+    cur.execute("SELECT * FROM products")
+    rv = cur.fetchall()
+    cur.close()
+    return render_template('checkout.html', computers=rv)
+
+
+@app.route('/confirm_order', methods=["GET","POST"])
+def confirm_order():
+    name = request.form['name']
+    emarate = request.form['emarate']
+    area = request.form['area']
+    string_number = request.form['string_number']
+    home_number = request.form['home_number']
+    phone_number = request.form['phone_number']
+    products = request.form['pid']
+    print(products)
+    price = request.form['total_price']
+    products_id = ''   
+    # for pid in products:
+    #     products_id = products[pid]+","
+
+
+    cur = mysql.connection.cursor()
+    cur.execute("INSERT INTO `orders`(`pid`,`area`, `name`, `home_number`, `phone_number`, `total_price`,street_number,emerate) VALUES (%s,%s,%s,%s,%s,%s,%s,%s)",(products,area,name,home_number,phone_number,price,string_number,emarate))
+    cur.execute("UPDATE products SET orders=orders+1 WHERE id=%s", (products))
+    mysql.connection.commit()
+    return redirect(url_for('checkout'))
 
 if __name__ == "__main__":
     app.run(debug=True)
