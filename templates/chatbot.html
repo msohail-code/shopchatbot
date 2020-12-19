@@ -19,10 +19,10 @@
  <div class="starter-template">
 
 
- <h1>Orders</h1>
+ <h1>Chatbot Hints</h1>
 
 
-
+ <button type="button" class="btn btn-info pull-right" data-toggle="modal" data-target="#myModal">Add Hints</button>
 
 
  <table class="table table-striped">
@@ -34,20 +34,15 @@
  <tr>
 
 
+ <td>No</td>
 
 
+ <td>Question</td>
+ <td>Hints</td>
+ 
 
- <td>id  </td>
- <td>pid </td>
 
- <td>area </td>
- <td>name </td>
- <td>home_number </td>
- <td>phone_number </td>
- <td>total_price </td>
- <td>street_number </td>
- <td>emerate </td>
-
+ <td>Action</td>
 
 
  </tr>
@@ -67,17 +62,20 @@
 
  <td>{{ row.0 }}</td>
  <td>{{ row.1 }}</td>
-
- <td>{{ row.3 }}</td>
- <td>{{ row.4 }}</td>
- <td>{{ row.5 }}</td>
- <td>{{ row.6 }}</td>
- <td>{{ row.7 }}</td>
- <td>{{ row.8 }}</td>
- <td>{{ row.9 }}</td>
+ <td>{{ row.2 }}</td>
 
 
- 
+
+ <td>
+
+
+ <a href="#!" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modalEdit{{ row.0 }}">Edit</a>
+
+
+ <a href="/delete_hint/{{ row.0 }}" class="btn btn-danger btn-xs" onclick="return confirm('Are you sure?')">Delete</a>
+
+
+ </td>
 
 
  </tr>
@@ -112,7 +110,7 @@
  <div class="modal-body">
 
 
- <form action="{{ url_for('update') }}" method="POST">
+ <form action="{{ url_for('update_hint') }}" method="POST">
 
 
  <div class="form-group">
@@ -125,30 +123,16 @@
 
  <!-- <input type="text" class="form-control" name="nama" value="{{ row.1 }}"> -->
 
- <label>Title:</label>
+ <label>Question:</label>
 
 
  <input type="text" class="form-control" name="title" value="{{ row.1 }}">
 
- <label>Description:</label>
+ <label>Hint:</label>
  <textarea class="form-control" rows="5" name="description">{{ row.2 }}</textarea> 
 
  
-  <label>orders:</label>
- <input type="number" class="form-control" name="orders"  value="{{ row.3 }}">
-
-  <label>price:</label>
- <input type="number" class="form-control" name="price"  value="{{ row.4 }}">
-  <label>category:</label>
- <input type="text" class="form-control" name="category"  value="{{ row.5 }}">
-  <label>image:</label>
- <input type="text" class="form-control" name="image"  value="{{ row.6 }}">
-  <label>status:</label>
-  <select name="status" class="form-control" >
-  	<option value="0">Publish</option>
-  	<option value="1">Draft</option>
-  </select>
-
+ 
 
  </div>
 
@@ -240,7 +224,7 @@
  <button type="button" class="close" data-dismiss="modal">&times;</button>
 
 
- <h4 class="modal-title">Product Details</h4>
+ <h4 class="modal-title">Add Hint</h4>
 
 
  </div>
@@ -249,7 +233,7 @@
  <div class="modal-body">
 
 
- <form action="{{ url_for('simpan') }}" method="POST">
+ <form action="{{ url_for('insert_hint') }}" method="POST">
 
 
  <div class="form-group">
@@ -264,21 +248,7 @@
  <textarea class="form-control" rows="5" name="description"></textarea> 
 
  
-  <label>orders:</label>
- <input type="number" class="form-control" name="orders">
-
-  <label>price:</label>
- <input type="number" class="form-control" name="price">
-  <label>category:</label>
- <input type="text" class="form-control" name="category">
-  <label>image:</label>
- <input type="text" class="form-control" name="image">
-  <label>status:</label>
-  <select name="status" class="form-control">
-  	<option value="0">Publish</option>
-  	<option value="1">Draft</option>
-  </select>
-
+ 
 
 
  </div>
@@ -287,7 +257,7 @@
  <div class="form-group">
 
 
- <button class="btn btn-primary" type="sbumit">Submit</button>
+ <button class="btn btn-primary" type="sbumit">Add</button>
 
 
  </div>

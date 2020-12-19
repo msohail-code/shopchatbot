@@ -9,34 +9,46 @@
 
 
 {% block body %}
+<style>
+	
 
+	nav.navbar.navbar-inverse {
+	    display: none!important;
+	}
+	span{
+		font-weight: bold;
+	}
+</style>
 <div class="container">
 	<div style="width: 600px;margin: auto;">
+		<center>
+			<h2>Please Fill this form</h2>
+		</center>
 		<form action="{{ url_for('confirm_order') }}" method="POST">
-			<label>Name:</label>
+			<label>Name:<span class="text-danger">*</span></label>
 
-			<input type="text" class="form-control" name="name">
-			<label>Emarate :</label>
+			<input type="text" class="form-control" name="name" required>
+			<label>Emarate :<span class="text-danger">*</span></label>
 
-			<input type="text" class="form-control" name="emarate">
-			<label>Area :</label>
+			<input type="text" class="form-control" name="emarate" required>
+			<label>Area :<span class="text-danger">*</span></label>
 
 			<input type="text" class="form-control" name="area">
-			<label>Street Number:</label>
+			<label>Street Number:<span class="text-danger">*</span></label>
 
-			<input type="text" class="form-control" name="string_number">
+			<input type="text" class="form-control" name="string_number" required>
 
-			<label>Home  Number:</label>
+			<label>Home  Number:<span class="text-danger">*</span></label>
 
-			<input type="text" class="form-control" name="home_number">
-			<label>Phone  Number:</label>
+			<input type="text" class="form-control" name="home_number" required>
+			<label>Phone  Number:<span class="text-danger">*</span></label>
 
-			<input type="numer" class="form-control" name="phone_number">
+			<input type="numer" class="form-control" name="phone_number" required>
 
 
 			 
 
-<label for="">Products</label>
+<label for="">Products <span class="text-danger">*</span></label>
  <table class="table table-striped">
 
 
@@ -91,8 +103,8 @@
 			</tbody>
 		</table>
 
-<input type="disabled" name="total_price" class="pull-rigjt no-borders" value="10" id="" >
- <button class="btn btn-primary" type="sbumit">Submit</button>
+
+ <button class="btn btn-primary" type="sbumit">Proceed</button>
 
 		</form>
 
