@@ -36,8 +36,8 @@ app.config['MYSQL_DB'] = 'GEO7DkKIaZ' # database name
 
 
 mysql = MySQL(app)
-account_sid = 'AC212913ecfcd499d33f93485c6953f402' # copied from twilio concole
-auth_token = '6a67d928ddedf6247c3ef77d1fff3c9e' # copied from twilio concole
+account_sid = '[Account SID]' # copied from twilio concole
+auth_token = '[AUTH TOKEN]' # copied from twilio concole
 client = Client(account_sid, auth_token) 
 msg = "Hello, world"
 p_url = "https://9ae0637ef9fd.ngrok.io/"
