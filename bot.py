@@ -25,11 +25,11 @@ app = Flask(__name__)
 #app.config['MYSQL_DB'] = 'chatbot' # database name
 
 #remote database
-
+# Port: 3306
 app.config['MYSQL_HOST'] = 'remotemysql.com'
 app.config['MYSQL_USER'] = 'GEO7DkKIaZ'
 app.config['MYSQL_PASSWORD'] = 'lfew4XrHw1'
-app.config['MYSQL_DB'] = 'GEO7DkKIaZ' # database name
+app.config['MYSQL_DB'] = 'GEO7DkKIaZ' # database name 
 
 
 
