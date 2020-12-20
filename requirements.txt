@@ -70,7 +70,6 @@ sqlparse==0.4.1
 terminado==0.9.1
 testpath==0.4.4
 tornado==6.1
-traitlets==5.0.5
 twilio==6.50.0
 urllib3==1.26.2
 wcwidth==0.2.5
