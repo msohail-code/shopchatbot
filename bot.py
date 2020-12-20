@@ -10,7 +10,7 @@ from werkzeug.utils import secure_filename
 
 currentDirectory = os.path.dirname(os.path.abspath(__file__))
 
-
+ 
 
 
 
@@ -174,6 +174,7 @@ def hapus(id_data):
     return redirect(url_for('home'))
 
 
+# deleting hint API
 @app.route('/delete_hint/<string:id_data>', methods=["GET"])
 def delete_hint(id_data):
     cur = mysql.connection.cursor()
