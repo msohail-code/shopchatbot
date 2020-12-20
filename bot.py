@@ -16,10 +16,25 @@ currentDirectory = os.path.dirname(os.path.abspath(__file__))
 
 
 app = Flask(__name__)
-app.config['MYSQL_HOST'] = 'localhost'
-app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = ''
-app.config['MYSQL_DB'] = 'chatbot' # database name
+
+
+# local database
+#app.config['MYSQL_HOST'] = 'localhost'
+#app.config['MYSQL_USER'] = 'root'
+#app.config['MYSQL_PASSWORD'] = ''
+#app.config['MYSQL_DB'] = 'chatbot' # database name
+
+#remote database
+
+app.config['MYSQL_HOST'] = 'remotemysql.com'
+app.config['MYSQL_USER'] = 'GEO7DkKIaZ'
+app.config['MYSQL_PASSWORD'] = 'lfew4XrHw1'
+app.config['MYSQL_DB'] = 'GEO7DkKIaZ' # database name
+
+
+
+
+
 mysql = MySQL(app)
 account_sid = 'AC212913ecfcd499d33f93485c6953f402' # copied from twilio concole
 auth_token = '6a67d928ddedf6247c3ef77d1fff3c9e' # copied from twilio concole
